@@ -15,25 +15,55 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sakshi-portfolio-beryl.vercel.app"),
+
   title: {
-    default: "Sakshi | Brand & UI/UX Designer",
-    template: "%s | Sakshi",
+    default: "Sakshi Katargamwala | Brand Identity & UI/UX Designer",
+    template: "%s | Sakshi Katargamwala",
   },
 
   description:
-    "Portfolio of Sakshi showcasing thoughtful brand identities, UI/UX design, and creative digital experiences.",
+    "Brand Identity & UI/UX Designer crafting thoughtful brands, memorable identities, and meaningful digital experiences.",
 
   keywords: [
-    "Sakshi",
-    "UI UX Designer",
-    "Brand Designer",
+    "Sakshi Katargamwala",
+    "Brand Identity Designer",
+    "UI Designer",
+    "UX Designer",
     "Portfolio",
+    "Brand Design",
     "Figma",
-    "Brand Identity",
-    "Product Design",
+    "Next.js",
   ],
 
-  authors: [{ name: "Sakshi" }],
+  authors: [{ name: "Sakshi Katargamwala" }],
+  creator: "Sakshi Katargamwala",
+
+  openGraph: {
+    title: "Sakshi Katargamwala | Brand Identity & UI/UX Designer",
+    description:
+      "Thoughtful brand identities and meaningful digital experiences.",
+    url: "https://sakshi-portfolio-beryl.vercel.app",
+    siteName: "Sakshi Portfolio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Sakshi Katargamwala Portfolio",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Sakshi Katargamwala | Brand Identity & UI/UX Designer",
+    description:
+      "Thoughtful brand identities and meaningful digital experiences.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
