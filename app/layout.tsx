@@ -19,16 +19,21 @@ export const metadata: Metadata = {
     default: "Sakshi | Brand & UI/UX Designer",
     template: "%s | Sakshi",
   },
+
   description:
     "Portfolio of Sakshi showcasing thoughtful brand identities, UI/UX design, and creative digital experiences.",
 
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
-    ],
-    apple: "/icon.png",
-  },
+  keywords: [
+    "Sakshi",
+    "UI UX Designer",
+    "Brand Designer",
+    "Portfolio",
+    "Figma",
+    "Brand Identity",
+    "Product Design",
+  ],
+
+  authors: [{ name: "Sakshi" }],
 };
 
 export default function RootLayout({
