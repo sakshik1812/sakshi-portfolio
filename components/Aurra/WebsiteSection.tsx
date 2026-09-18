@@ -4,8 +4,14 @@ import Image from "next/image";
 import FadeUp from "../animations/FadeUp";
 import { motion } from "framer-motion";
 import { imageReveal } from "../animations/motion";
+import { useReveal } from "../animations/useReveal";
 
 export default function WebsiteSection() {
+  // This image is 1800x4800. Rendered full width it is roughly 3200px tall,
+  // several times the viewport. Observer thresholds are a bad fit for that;
+  // the hook's viewport cap handles it.
+  const { ref, inView } = useReveal<HTMLDivElement>({ amount: 0.15 });
+
   return (
     <section className="bg-[#F8F5F1] pt-12 pb-24 lg:pt-20 lg:pb-40">
       <div className="mx-auto max-w-7xl px-8 lg:px-16">
@@ -32,13 +38,11 @@ export default function WebsiteSection() {
         {/* Website Mockup */}
 
         <motion.div
+          ref={ref}
+          data-reveal
           variants={imageReveal}
           initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
+          animate={inView ? "visible" : "hidden"}
           className="mt-16 overflow-hidden rounded-3xl bg-[#F1E8DC] p-4 lg:mt-20 lg:p-8"
         >
           <Image

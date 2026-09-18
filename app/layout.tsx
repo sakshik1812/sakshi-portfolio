@@ -66,21 +66,28 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${generalSans.variable} ${inter.variable}`}
-    >
+    <html lang="en" className={`${generalSans.variable} ${inter.variable}`}>
       <body>
-  <LenisProvider>
-    {children}
-  </LenisProvider>
-</body>
+        {/*
+          Every animated block server-renders hidden (opacity:0 or a
+          clip-path inset). Without JS the page is a wall of background colour,
+          which is bad for crawlers that do not execute scripts and worse for
+          anyone who blocks the bundle. This forces the final state in that case.
+        */}
+        <noscript>
+          <style>{`
+            [data-reveal] {
+              opacity: 1 !important;
+              clip-path: none !important;
+              transform: none !important;
+            }
+          `}</style>
+        </noscript>
+
+        <LenisProvider>{children}</LenisProvider>
+      </body>
     </html>
   );
 }

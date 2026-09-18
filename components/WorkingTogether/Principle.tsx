@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useReveal } from "../animations/useReveal";
 
 type PrincipleProps = {
   number: string;
@@ -13,17 +14,23 @@ export default function Principle({
   title,
   description,
 }: PrincipleProps) {
+  // Was amount: 0.65 on a min-h-[50vh] element. If the content ever pushed that
+  // element past ~1.5x the viewport height, 65% could never be satisfied and it
+  // would sit at opacity 0.25 forever. Lowered, and the hook caps it as well.
+  const { ref, inView } = useReveal<HTMLDivElement>({
+    amount: 0.5,
+    once: false,
+  });
+
   return (
     <motion.div
+      ref={ref}
+      data-reveal
       initial={{ opacity: 0.25, y: 80, scale: 0.96 }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-        scale: 1,
-      }}
-      viewport={{
-        amount: 0.65,
-        once: false,
+      animate={{
+        opacity: inView ? 1 : 0.25,
+        y: inView ? 0 : 80,
+        scale: inView ? 1 : 0.96,
       }}
       transition={{
         duration: 0.7,
@@ -34,9 +41,7 @@ export default function Principle({
       {/* Mobile */}
 
       <div className="block w-full lg:hidden">
-        <p className="text-7xl font-medium text-[#B48858]">
-          {number}
-        </p>
+        <p className="text-7xl font-medium text-[#B48858]">{number}</p>
 
         <h3 className="mt-4 text-4xl font-medium leading-tight text-[#161616]">
           {title}
@@ -51,9 +56,7 @@ export default function Principle({
 
       <div className="hidden w-full grid-cols-12 gap-10 lg:grid">
         <div className="col-span-2">
-          <p className="text-8xl font-medium text-[#B48858]">
-            {number}
-          </p>
+          <p className="text-8xl font-medium text-[#B48858]">{number}</p>
         </div>
 
         <div className="col-span-10">

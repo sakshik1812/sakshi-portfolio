@@ -2,21 +2,27 @@
 
 import { motion } from "framer-motion";
 import Container from "../ui/Container";
+import { useReveal } from "../animations/useReveal";
 
 export default function Contact() {
+  // One trigger for the whole block instead of five independent observers.
+  // The stagger now comes purely from the transition delays, which is what the
+  // delays were written for.
+  const { ref, inView } = useReveal<HTMLDivElement>({ amount: 0.1 });
+
   return (
-    <section
-      id="contact"
-      className="bg-[#F8F5F1] py-24 lg:py-40"
-    >
+    <section id="contact" className="bg-[#F8F5F1] py-24 lg:py-40">
       <Container>
-        <div className="border-t border-[#DDD6CC] pt-12 lg:pt-16">
+        <div
+          ref={ref}
+          className="border-t border-[#DDD6CC] pt-12 lg:pt-16"
+        >
           {/* Label */}
 
           <motion.p
+            data-reveal
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 20 }}
             transition={{ duration: 0.5 }}
             className="text-sm uppercase tracking-[0.35em] text-[#4E315B]"
           >
@@ -26,9 +32,9 @@ export default function Contact() {
           {/* Heading */}
 
           <motion.h2
+            data-reveal
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
             transition={{ delay: 0.1, duration: 0.6 }}
             className="mt-8 max-w-5xl text-5xl font-medium leading-[1.05] text-[#161616] lg:mt-10 lg:text-7xl"
           >
@@ -40,9 +46,9 @@ export default function Contact() {
           {/* Body */}
 
           <motion.p
+            data-reveal
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
             transition={{ delay: 0.2, duration: 0.6 }}
             className="mt-8 max-w-2xl text-lg leading-relaxed text-[#5A3E2B] lg:mt-10 lg:text-xl"
           >
@@ -54,9 +60,9 @@ export default function Contact() {
 
           <motion.a
             href="mailto:srkatargamwala@gmail.com"
+            data-reveal
             initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 40 }}
             transition={{ delay: 0.3, duration: 0.6 }}
             className="group mt-16 inline-flex max-w-full items-center gap-3 border-b border-transparent pb-2 text-[24px] font-medium leading-tight text-[#4E315B] transition-all duration-300 hover:border-[#4E315B] hover:text-[#6A4A78] sm:text-[28px] lg:mt-24 lg:text-4xl"
             style={{
@@ -74,9 +80,9 @@ export default function Contact() {
           {/* Socials */}
 
           <motion.div
+            data-reveal
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            animate={{ opacity: inView ? 1 : 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mt-16 flex flex-wrap gap-8 border-t border-[#DDD6CC] pt-8 lg:mt-20 lg:gap-12 lg:pt-10"
           >
@@ -87,7 +93,6 @@ export default function Contact() {
               className="group inline-flex items-center gap-2 text-xl text-[#2D211B] transition-colors hover:text-[#A67C52] lg:text-2xl"
             >
               Behance
-
               <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
                 ↗
               </span>
@@ -100,7 +105,6 @@ export default function Contact() {
               className="group inline-flex items-center gap-2 text-xl text-[#2D211B] transition-colors hover:text-[#A67C52] lg:text-2xl"
             >
               LinkedIn
-
               <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
                 ↗
               </span>

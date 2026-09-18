@@ -3,17 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useReveal } from "../animations/useReveal";
 
 export default function AurraHero() {
+  // amount lowered from 0.3, and the hook caps the requirement against the
+  // viewport so a 90vh section can always qualify.
+  const { ref, inView } = useReveal<HTMLElement>({ amount: 0.2 });
+
   return (
     <>
       {/* ---------------- Desktop ---------------- */}
 
       <motion.section
+        ref={ref}
+        data-reveal
         className="mt-12 hidden lg:block"
         initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
-        whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
-        viewport={{ once: true, amount: 0.3 }}
+        animate={{
+          clipPath: inView ? "inset(0% 0% 0% 0%)" : "inset(100% 0% 0% 0%)",
+        }}
         transition={{
           duration: 1.2,
           ease: [0.22, 1, 0.36, 1],
@@ -106,33 +114,31 @@ export default function AurraHero() {
 
       {/* ---------------- Mobile ---------------- */}
 
-<section className="mt-8 block lg:hidden">
-  <Link href="/work/aurra">
-    <div className="group relative overflow-hidden rounded-3xl">
-      <Image
-        src="/images/aurra/hero.png"
-        alt="Aurra Brand Identity"
-        width={1200}
-        height={800}
-        className="h-[340px] w-full object-cover transition-transform duration-500 active:scale-[0.98]"
-      />
+      <section className="mt-8 block lg:hidden">
+        <Link href="/work/aurra">
+          <div className="group relative overflow-hidden rounded-3xl">
+            <Image
+              src="/images/aurra/hero.png"
+              alt="Aurra Brand Identity"
+              width={1200}
+              height={800}
+              className="h-[340px] w-full object-cover transition-transform duration-500 active:scale-[0.98]"
+            />
 
-      {/* Explore Pill */}
+            {/* Explore Pill */}
 
-      <div className="absolute bottom-5 right-5 rounded-full bg-[#F8F6F2]/95 px-5 py-2 shadow-lg backdrop-blur-md">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-[#2D211B]">
-            View Case Study
-          </span>
+            <div className="absolute bottom-5 right-5 rounded-full bg-[#F8F6F2]/95 px-5 py-2 shadow-lg backdrop-blur-md">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-[#2D211B]">
+                  View Case Study
+                </span>
 
-          <span className="text-sm text-[#2D211B]">
-            ↗
-          </span>
-        </div>
-      </div>
-    </div>
-  </Link>
-</section>
+                <span className="text-sm text-[#2D211B]">↗</span>
+              </div>
+            </div>
+          </div>
+        </Link>
+      </section>
     </>
   );
 }
